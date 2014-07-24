@@ -1,0 +1,85 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title></title>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+</head>
+    <body>
+        <div class="container">
+            <!-- Static navbar -->
+            <div class="navbar navbar-default" role="navigation">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="#">Breeze Demo</a>
+                    </div>
+                    <div class="navbar-collapse collapse">
+                        <ul class="nav navbar-nav">
+                            <li class="active"><a href="#">List of orders</a></li>
+                        </ul>
+                    </div><!--/.nav-collapse -->
+                </div><!--/.container-fluid -->
+            </div>
+
+            <!-- Main component for a primary marketing message or call to action -->
+            <div id ="mainDiv" class="jumbotron">
+                <p data-bind="visible: orders().length<0">Fetching data ... </p>
+                <div data-bind="visible: orders() && orders().length>0">
+                    <table class="table-bordered">
+                        <thead>
+                        <th>Id</th>
+                        <th>Customer Name</th>
+                        <th>Order Date</th>
+                        </thead>
+                        <tbody data-bind="foreach: orders">
+                            <tr>
+                                <td><span data-bind="text:Id, visible: $parent.mode()==='read-only'" class="orderId"></span><input type="text" data-bind="value:Id, visible: $parent.mode()==='edit'" /></td>
+                                <td><span data-bind="text:Customer, visible: $parent.mode()==='read-only'"></span><input type="text" data-bind="value:Customer, visible: $parent.mode()==='edit'" /></td>
+                                <td><span data-bind="text:OrderDate, visible: $parent.mode()==='read-only'"></span><input type="text" data-bind="value:OrderDate, visible: $parent.mode()==='edit'" /></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <button id="btnSave" data-bind="visible: mode()==='edit'">Save</button>
+                    <button id="btnEdit" data-bind="visible: mode()==='read-only'">Edit</button>
+                    <button id="btnCancel" data-bind="visible: mode()==='edit'">Cancel</button>
+                    <button id="btnFilter" data-bind="visible: mode()==='read-only'">Filter</button>
+                    <button id="btnClearFilter" data-bind="visible: mode()==='read-only'">Clear Filter</button>
+                </div>
+                <div data-bind="visible: orderDetails() && orderDetails().length>0 && mode()==='read-only'">
+                    <table class="table-bordered">
+                        <thead>
+                        <th>Id</th>
+                        <th>Quantity</th>
+                        </thead>
+                        <tbody data-bind="foreach: orderDetails">
+                            <tr>
+                                <td><span data-bind="text:Id"></span></td>
+                                <td><span data-bind="text:Quantity"></span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <script src="~/Scripts/vendor/jQuery/jquery-2.1.1.min.js"></script>
+        <script src="~/Scripts/vendor/knockout/knockout-2.3.0.js"></script>
+        <script src="~/Scripts/OrdersViewModel.js"></script>
+        <script src="~/Scripts/vendor/bootstrap/bootstrap.min.js"></script>
+        <script src="~/Scripts/vendor/breeze/q.min.js"></script>
+        <script src="~/Scripts/vendor/breeze/breeze.min.js"></script>
+        <script src="~/Scripts/config.js"></script>
+        <script src="~/Scripts/entityManagerFactory.js"></script>
+        <script src="~/Scripts/Index.js"></script>
+</body>
+</html>
